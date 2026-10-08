@@ -1,0 +1,11 @@
+{
+  "WidthUnits": 444,
+  "HeightUnits": 972,
+  "VideoAspect": 0.46111111111111114,
+  "PointerStep": 24,
+  "PointerDelayMs": 20,
+  "HomingIterations": 96,
+  "TapDelayMs": 40,
+  "DragUpdateHz": 50,
+  "PointerMode": "Precise"
+}

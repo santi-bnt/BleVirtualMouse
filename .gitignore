@@ -1,0 +1,58 @@
+# Local configuration and logs
+config.json
+*.local.json
+.env
+.env.*
+!.env.example
+secrets.json
+secrets.*.json
+*.log
+logs/
+
+# Build and test output
+**/bin/
+**/obj/
+**/.pio/
+artifacts/
+TestResults/
+coverage/
+
+# Local SDKs, environments, caches, and downloaded tools
+.dotnet_home/
+.nuget/
+.platformio/
+.venv/
+tools/
+
+# IDE and operating-system state
+.vs/
+.vscode/
+.idea/
+.serena/
+*.user
+*.suo
+*.rsuser
+desktop.ini
+Thumbs.db
+
+# Package and temporary output
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+*.cer
+*.pfx
+*.pem
+*.key
+*.crt
+*.zip
+*.bin
+*.elf
+*.map
+*.tmp
+*.temp
+*.bak
+
+# PlatformIO local state
+.pioenvs/
+.piolibdeps/

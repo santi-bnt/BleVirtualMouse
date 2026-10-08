@@ -1,0 +1,74 @@
+<Window x:Class="BleVirtualMouse.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:controls="clr-namespace:BleVirtualMouse.Controls"
+ Title="iPhone Controller - BleVirtualMouse" Width="1100" Height="820" MinWidth="820" MinHeight="660"
+ Background="#F3F4F6" PreviewKeyDown="Window_KeyDown">
+ <Window.Resources>
+  <Style TargetType="Button"><Setter Property="Padding" Value="10,7"/><Setter Property="Margin" Value="3"/><Setter Property="MinHeight" Value="32"/></Style>
+  <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
+ </Window.Resources>
+ <Grid Margin="16">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="150"/></Grid.RowDefinitions>
+  <DockPanel><TextBlock Text="iPhone Controller" FontSize="24" FontWeight="SemiBold"/>
+   <CheckBox x:Name="DebugToggle" Content="Mostrar debug" HorizontalAlignment="Right" VerticalAlignment="Center" Checked="Debug_Changed" Unchecked="Debug_Changed"/>
+  </DockPanel>
+  <WrapPanel Grid.Row="1" Margin="0,8,0,10">
+   <Button Content="Iniciar mirroring" Click="StartMirror_Click"/>
+   <Button Content="Detener mirroring" Click="StopMirror_Click"/>
+   <Button Content="Calibrar" Click="Calibrate_Click"/>
+   <Button x:Name="EmergencyButton" Content="EMERGENCY STOP" Background="#B91C1C" Foreground="White" FontWeight="Bold" Click="Emergency_Click"/>
+   <Button Content="RESUME" ToolTip="Reanudar entradas" Click="Resume_Click"/>
+  </WrapPanel>
+  <Grid Grid.Row="2">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="290"/></Grid.ColumnDefinitions>
+   <controls:ScreenView x:Name="PhoneScreen" Margin="0,0,14,12"/>
+   <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+     <TextBlock Text="Bluetooth / ESP32" FontWeight="SemiBold"/>
+     <WrapPanel><ComboBox x:Name="PortComboBox" Width="90" Height="32"/><Button Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" ToolTip="Buscar puertos USB" Click="RefreshPorts_Click"/>
+      <Button x:Name="ConnectButton" Content="Conectar" Click="ConnectEsp32_Click"/>
+      <Button x:Name="DisconnectButton" Content="Desconectar" Click="DisconnectEsp32_Click"/></WrapPanel>
+     <TextBlock x:Name="StatusTextBlock" Margin="0,6,0,10"/>
+     <TextBlock Text="AirPlay" FontWeight="SemiBold"/>
+     <TextBlock x:Name="AirPlayStatus" Margin="0,4,0,0"/>
+     <TextBlock x:Name="AccessPassword" Foreground="#166534" Margin="0,4,0,10"/>
+     <TextBlock x:Name="CalibrationStatus" Margin="0,4,0,8"/>
+     <Button x:Name="HomeButton" Content="HOME POINTER" Click="Home_Click"/>
+     <WrapPanel x:Name="GestureControls" IsEnabled="False">
+      <Button Content="POSITION TEST" Click="PositionTest_Click"/>
+      <Button Content="TAP CENTER" Click="TapCenter_Click"/>
+      <Button Content="DRAG TEST" Click="DragTest_Click"/>
+      <Button Content="SCROLL TEST" Click="ScrollTest_Click"/>
+      <Button Content="EMERGENCY TEST" Click="EmergencyTest_Click"/>
+      <Button Content="DRIFT TEST" Click="DriftTest_Click"/>
+     </WrapPanel>
+     <TextBlock x:Name="MetricsText" FontFamily="Consolas" FontSize="12" Margin="0,0,0,10"/>
+     <StackPanel x:Name="CalibrationPanel" Visibility="Collapsed" Background="#E5E7EB" Margin="0,0,0,10">
+      <TextBlock Text="1. Coloca el cursor arriba-izquierda con las flechas y guarda. 2. Muevelo abajo-derecha con las flechas y guarda." Margin="8"/>
+      <Button Content="Guardar arriba-izquierda / sincronizar" Click="Anchor_Click"/>
+      <Button Content="Guardar abajo-derecha" Click="SaveCalibration_Click"/>
+      <Button Content="Usar calibracion guardada" Click="UseCalibration_Click"/>
+     </StackPanel>
+     <WrapPanel x:Name="MouseControls" IsEnabled="False">
+      <Button Content="&#xE70E;" FontFamily="Segoe MDL2 Assets" ToolTip="Arriba" Click="MoveUp_Click"/>
+      <Button Content="&#xE70D;" FontFamily="Segoe MDL2 Assets" ToolTip="Abajo" Click="MoveDown_Click"/>
+      <Button Content="&#xE76B;" FontFamily="Segoe MDL2 Assets" ToolTip="Izquierda" Click="MoveLeft_Click"/>
+      <Button Content="&#xE76C;" FontFamily="Segoe MDL2 Assets" ToolTip="Derecha" Click="MoveRight_Click"/>
+      <Button Content="Clic izquierdo" Click="LeftClick_Click"/><Button Content="Clic derecho" Click="RightClick_Click"/>
+      <Button Content="Rueda +" Click="ScrollUp_Click"/><Button Content="Rueda -" Click="ScrollDown_Click"/>
+     </WrapPanel>
+     <Separator Margin="0,10"/>
+     <WrapPanel x:Name="SwipeControls" IsEnabled="False">
+      <Button Content="SWIPE UP" Click="SwipeUp_Click"/><Button Content="SWIPE DOWN" Click="SwipeDown_Click"/>
+      <Button Content="SWIPE LEFT" Click="SwipeLeft_Click"/><Button Content="SWIPE RIGHT" Click="SwipeRight_Click"/>
+     </WrapPanel>
+     <Button x:Name="ClearBondsButton" Content="Borrar vinculo iPhone" Click="ClearBonds_Click" Margin="3,12,3,3"/>
+    </StackPanel>
+   </ScrollViewer>
+  </Grid>
+  <DockPanel Grid.Row="3"><TextBlock Text="Log" DockPanel.Dock="Top" FontWeight="SemiBold" Margin="0,0,0,5"/>
+   <TextBox x:Name="LogTextBox" IsReadOnly="True" FontFamily="Consolas" FontSize="12" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+  </DockPanel>
+ </Grid>
+</Window>
